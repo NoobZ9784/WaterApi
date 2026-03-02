@@ -1,0 +1,44 @@
+<div class="apiBarContainer">
+    <div class="apiBar">
+        <select #reqType>
+            <option value="get" (click)="clickOnTypeSelect(reqType.value)">GET</option>
+            <option value="post" (click)="clickOnTypeSelect(reqType.value)">POST</option>
+            <option value="update" (click)="clickOnTypeSelect(reqType.value)">UPDATE</option>
+            <option value="delete" (click)="clickOnTypeSelect(reqType.value)">DELETE</option>
+        </select>
+        <input type="url" #reqUrl placeholder=" Enter URL">
+        <button (click)="getApiData(reqType.value,reqUrl.value,postTextAreaData.value)">SEND</button>
+    </div>
+    <div class="postBar">
+        <div class="postBarBtns">
+            <div *ngFor="let item of postBarBtns" class="{{'postBarBtn'+item.id}}" (click)="postBarBtnClick(item.id)">{{item.name}}</div>
+        </div>
+        <div class="content">
+            <div class="postBarNotAvl cntntBtn">
+                <p>Not Available at this Moment</p>
+            </div>
+            <div class="postBarBody cntntBtn">
+                <div class="postBarBodyBtns">
+                    <div *ngFor="let btn of postBarBodyBtns" class="{{'postBarBodyBtn'+btn.id}}" (click)="postBarBodyBtnClick(btn.id)" >{{btn.name}}</div>
+                </div>
+                <div class="postBarBodyCntnt">
+                    <div class="form">
+                        <p>Not Available Yet</p>
+                    </div>
+                    <div class="raw">
+                        <div>
+                            <textarea spellcheck="false" id="postTextAreaData" placeholder="Post Data" #postTextAreaData (keyup)="textAreaJsonValidate(postTextAreaData.value)" [className]="textAreaValdiationClass" ></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="isErr" *ngIf="responseErr">WARNING : Error Occured</div>
+    <div class="res">
+        <h2>Response Tab</h2>
+        <h3 *ngIf="response">Data Count : {{dataCount}}</h3>
+        <pre><p>{{responseData | json}}</p></pre>
+    </div>
+
+</div>
